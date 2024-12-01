@@ -1,0 +1,165 @@
+@use '../../../styles/colors.scss' as *;
+
+.sign-up-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+
+    .banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $forest-green;
+        padding: 0 1rem;
+        width: 40%;
+
+        &__logo {
+            max-width: 350px;
+
+            &--mobile {
+                display: none;
+            }
+        }
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+        padding: 4rem;
+
+        &__header {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        &__control {
+            display: flex;
+            flex-direction: column;
+
+            input {
+                outline: none;
+                border: none;
+                border-bottom: 2px solid $light-gray;
+                font-size: 20px;
+                padding: 8px 0 16px 0;
+
+                &::placeholder {
+                    color: $light-gray;
+                }
+            }
+        }
+
+        &__buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1rem;
+
+            button {
+                cursor: pointer;
+            }
+
+            &--login {
+                position: relative;
+                height: fit-content;
+                background-color: transparent;
+                border: none;
+                color: $forest-green;
+                font-weight: bold;
+                font-size: 14px;
+                padding: 8px;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 50%;
+                    bottom: 0;
+                    width: 0;
+                    height: 2px;
+                    background-color: $forest-green; 
+                    transition: width 0.3s ease; 
+                    transform: translateX(-50%);
+                }
+    
+                &:hover::after {
+                    width: calc(100% - 16px);
+                }
+            }
+
+            &--register {
+                background-color: $forest-green;
+                color: $white;
+                border: 2px solid transparent;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 12px 3rem;
+                border-radius: 100px;
+                position: relative; // Wymagane dla pseudoelementu
+                overflow: hidden;  // Zapobiega wychodzeniu efektu poza przycisk
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+    
+                &:hover {
+                    background-color: darken($forest-green, 10%); // Opcjonalne przyciemnienie tła na hover
+                }
+    
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%; // Poza widocznym obszarem
+                    width: 60%;
+                    height: 100%;
+                    background: rgba(255, 255, 255, 0.2); // Efekt "światła"
+                    transform: skewX(-20deg); // Przekrzywienie światła
+                    transition: none;
+                }
+    
+                &:hover::before {
+                    animation: shine 0.8s ease-out; // Animacja na hover
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .sign-up-container {
+        flex-direction: column;
+
+        .banner {
+            padding: 1rem;
+            width: 100%;
+    
+            &__logo {
+                display: none;
+
+                &--mobile {
+                    max-width: 200px;
+                    display: block;
+                }
+            }
+        }
+
+        .form {
+            padding: 2rem;
+
+            &__header {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+@keyframes shine {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 100%;
+    }
+}
