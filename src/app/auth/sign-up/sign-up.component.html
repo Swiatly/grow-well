@@ -1,29 +1,70 @@
 <div class="sign-up-container">
     <div class="banner">
-        <img class="banner__logo" [src]="logoTextWhite" alt="Grow Well Logo">
-        <img class="banner__logo--mobile" [src]="logoTextWhiteMobile" alt="Grow Well Logo">
+        <img class="banner__logo" src="../../../assets/logo/logo-text--white.svg" alt="Grow Well Logo">
+        <img class="banner__logo--mobile" src="../../../assets/logo/logo-text-horizontal--white.svg" alt="Grow Well Logo">
     </div>
-    <form class="form">
+    <form class="form" [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
         <div class="form__header">Sign Up</div>
         <div class="form__control">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" placeholder="Username...">
+            <input 
+                formControlName="username" 
+                type="text" 
+                id="username"
+                placeholder="Username...">
+            <div *ngIf="signUpForm.get('username')?.invalid && signUpForm.get('username')?.touched" class="error">
+                <span *ngIf="signUpForm.get('username')?.errors?.['required']">Username is required.</span>
+            </div>
         </div>
         <div class="form__control">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="Email...">
+            <input 
+                formControlName="email" 
+                type="email" 
+                id="email" 
+                placeholder="Email...">
+            <div *ngIf="signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" class="error">
+                <span *ngIf="signUpForm.get('email')?.errors?.['required']">Email is required.</span>
+                <span *ngIf="signUpForm.get('email')?.errors?.['email']">Enter a valid email address.</span>
+            </div>
         </div>
         <div class="form__control">
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="••••••••••••••">
+            <input 
+                formControlName="password" 
+                type="password" 
+                id="password" 
+                placeholder="••••••••••••••">
+            <div *ngIf="signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched" class="error">
+                <span *ngIf="signUpForm.get('password')?.errors?.['required']">Password is required.</span>
+                <span *ngIf="signUpForm.get('password')?.errors?.['minlength'] || signUpForm.get('password')?.errors?.['pattern']">
+                    Password is too weak. 
+                </span>
+            </div>
         </div>
         <div class="form__control">
             <label for="repeat-password">Repeat Password</label>
-            <input type="password" name="repeat-password" id="repeat-password" placeholder="••••••••••••••">
+            <input 
+                formControlName="repeat-password" 
+                type="password" 
+                id="repeat-password"
+                placeholder="••••••••••••••">
+            <div *ngIf="signUpForm.get('repeat-password')?.invalid && signUpForm.get('repeat-password')?.touched" class="error" dynamicErrorPosition>
+                <span *ngIf="signUpForm.get('repeat-password')?.errors?.['required']">
+                    Please repeat your password.
+                </span>
+                <span *ngIf="signUpForm.get('repeat-password')?.errors?.['passwordsMismatch'] && signUpForm.get('repeat-password')?.value">
+                    Passwords do not match.
+                </span>
+            </div>
         </div>
         <div class="form__buttons">
-            <button class="form__buttons--register" type="submit">Sign Up</button>
-            <button class="form__buttons--login" type="button">Sign In &#10230;</button>
+            <button class="form__buttons--register" type="submit" [disabled]="signUpForm.invalid">
+                Sign Up
+            </button>
+            <button class="form__buttons--login" type="button">
+                Sign In &#10230;
+            </button>
         </div>
     </form>
 </div>

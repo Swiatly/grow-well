@@ -15,6 +15,7 @@
 
         &__logo {
             max-width: 350px;
+            width: 100%;
 
             &--mobile {
                 display: none;
@@ -26,8 +27,16 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 2rem;
+        gap: 3rem;
         padding: 4rem;
+
+        .error {
+            position: absolute;
+            color: $error-red;
+            left: 0;
+            bottom: -25%;
+            font-size: 12px;
+        }
 
         &__header {
             font-size: 32px;
@@ -36,6 +45,7 @@
         }
 
         &__control {
+            position: relative;
             display: flex;
             flex-direction: column;
 
@@ -48,6 +58,10 @@
 
                 &::placeholder {
                     color: $light-gray;
+                }
+
+                &.ng-invalid.ng-touched {
+                    border-bottom: 2px solid $error-red;
                 }
             }
         }
@@ -102,6 +116,11 @@
                 overflow: hidden;  // Zapobiega wychodzeniu efektu poza przycisk
                 cursor: pointer;
                 transition: background-color 0.3s ease;
+
+                &:disabled {
+                    opacity: 0.7;
+                    pointer-events: none;
+                }
     
                 &:hover {
                     background-color: darken($forest-green, 10%); // Opcjonalne przyciemnienie tła na hover
